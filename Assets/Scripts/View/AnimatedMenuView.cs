@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class AnimatedMenuController : MonoBehaviour
+public class AnimatedMenuView : MonoBehaviour
 {
     [Header("Menu")]
     [SerializeField] private RectTransform sideMenu;

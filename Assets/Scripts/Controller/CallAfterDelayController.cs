@@ -1,15 +1,15 @@
 using UnityEngine;
 using System.Collections;
 
-public class CallAfterDelay : MonoBehaviour
+public class CallAfterDelayController : MonoBehaviour
 {
     float delay;
     System.Action action;
 
-    // Will never call this frame, always the next frame at the earliest
-    public static CallAfterDelay Create(float delay, System.Action action)
+    // Ніколи не буде викликано в цьому кадрі, тільки в наступному 
+    public static CallAfterDelayController Create(float delay, System.Action action)
     {
-        CallAfterDelay cad = new GameObject("CallAfterDelay").AddComponent<CallAfterDelay>();
+        CallAfterDelayController cad = new GameObject("CallAfterDelay").AddComponent<CallAfterDelayController>();
         cad.delay = delay;
         cad.action = action;
         return cad;

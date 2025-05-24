@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 
-public class CameraDrag : MonoBehaviour
+public class CameraDragController : MonoBehaviour
 {
     private Camera _mainCamera;
     private Vector3 _origin;
@@ -20,7 +20,7 @@ public class CameraDrag : MonoBehaviour
 
         if (groundTilemap == null)
         {
-            Debug.LogError("Ground tilemap не призначено.");
+            Debug.LogError("Ground tilemap not assigned.");
             return;
         }
 
@@ -41,7 +41,7 @@ public class CameraDrag : MonoBehaviour
 
     public void OnDrag(InputAction.CallbackContext ctx)
     {
-        if (ctx.started) _origin = GetMouseWorldPosition;
+        if (ctx.started) _origin = GetMouseWorldPosition();
         _isDragging = ctx.started || ctx.performed;
     }
 
@@ -52,21 +52,18 @@ public class CameraDrag : MonoBehaviour
         if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
             return;
 
-        _difference = GetMouseWorldPosition - transform.position;
+        _difference = GetMouseWorldPosition() - transform.position;
         Vector3 newPos = _origin - _difference;
 
-        // Обмежуємо тільки по Y
+        // Обмеження тільки по Y
         float clampedY = Mathf.Clamp(newPos.y, minY, maxY);
 
         transform.position = new Vector3(transform.position.x, clampedY, transform.position.z);
     }
 
-    private Vector3 GetMouseWorldPosition
+    private Vector3 GetMouseWorldPosition()
     {
-        get
-        {
-            Vector2 screenPosition = Mouse.current.position.ReadValue();
-            return _mainCamera.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, -_mainCamera.transform.position.z));
-        }
+        Vector2 screenPosition = Mouse.current.position.ReadValue();
+        return _mainCamera.ScreenToWorldPoint(new Vector3(screenPosition.x, screenPosition.y, -_mainCamera.transform.position.z));
     }
 }

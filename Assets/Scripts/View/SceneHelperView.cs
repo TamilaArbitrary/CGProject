@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class SceneHelper
+public static class SceneHelperView
 {
     public static void LoadScene(string s, bool additive = false, bool setActive = false)
     {
@@ -15,7 +15,7 @@ public static class SceneHelper
 
         if (setActive)
         {
-            CallAfterDelay.Create(0, () => {
+            CallAfterDelayController.Create(0, () => {
                 UnityEngine.SceneManagement.SceneManager.SetActiveScene(
                     UnityEngine.SceneManagement.SceneManager.GetSceneByName(s));
             });
