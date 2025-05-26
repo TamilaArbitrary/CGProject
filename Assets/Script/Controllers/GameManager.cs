@@ -99,5 +99,3 @@ public class PlayerData : MonoBehaviour
          stepOfLevel+=1;
     }
 }
-
-
